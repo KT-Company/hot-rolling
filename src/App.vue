@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import Scene from '@/views/Scene.vue'
+import Scene from "@/views/Scene.vue";
 </script>
 
 <template>
-  <Scene/>
+  <!-- <Scene/> -->
   <router-view></router-view>
 </template>
 
