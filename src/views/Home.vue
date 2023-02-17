@@ -1,7 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import { onMounted, ref } from "vue";
 import * as echarts from "echarts";
-
+import Top from "@/components/Top.vue";
+import RightFrame from "@/components/RightFrame.vue";
+import BottomFrame from "@/components/BottomFrame.vue";
 const leftRef = ref(null);
 
 onMounted(() => {
@@ -38,6 +40,9 @@ onMounted(() => {
 
 <template>
   <div class="home">
+    <Top />
+    <RightFrame />
+    <BottomFrame />
     <div ref="leftRef" class="left"></div>
   </div>
 </template>
@@ -50,10 +55,9 @@ onMounted(() => {
   position: absolute;
 }
 .left {
-  width: 500px;
-  height: 500px;
-  background-color: rgba(133, 133, 133, 0.5);
+  /* width: 500px; */
+  /* height: 500px; */
+  /* background-color: rgba(133, 133, 133, 0.5); */
   pointer-events: auto;
-  
 }
 </style>

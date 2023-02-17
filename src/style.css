@@ -1,8 +1,19 @@
 * {
   margin: 0;
   user-select: none;
+  box-sizing: border-box;
 }
 
 .dg.ac {
   z-index: 1 !important;
+}
+
+p{
+  margin: 0;
+  padding: 0;
+}
+ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
