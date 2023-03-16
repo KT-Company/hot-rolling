@@ -47,7 +47,7 @@ function changebtn(e) {
   #titleBar {
     width: vw(1244);
     height: vh(137);
-    background: url("../../public/assets/2d/img/dingbulan@2x.png") no-repeat;
+    background: url("/assets/2d/img/dingbulan@2x.png") no-repeat;
     background-position-x: vw(-1213);
     background-size: 200% 100%;
     display: flex;

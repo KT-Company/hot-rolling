@@ -4,7 +4,8 @@ import { ElMessage } from 'element-plus' // 引入el 提示框，这个项目里
 
 // 设置接口超时时间
 axios.defaults.timeout = 60000
-axios.defaults.baseURL = 'http://127.0.0.1:5173/api'
+// axios.defaults.baseURL = 'http://127.0.0.1:5173/api'
+axios.defaults.baseURL = 'http://127.0.0.1:5173/'
 
 //http request 拦截器
 axios.interceptors.request.use(

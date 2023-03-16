@@ -3,7 +3,7 @@ import Scene from "@/views/Scene.vue";
 </script>
 
 <template>
-  <!-- <Scene/> -->
+  <Scene />
   <router-view></router-view>
 </template>
 

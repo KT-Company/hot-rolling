@@ -106,7 +106,7 @@ const equipmentArray = [
       flex-direction: column;
       flex-wrap: wrap;
       justify-content: center;
-      background: url("../../public/assets/2d/img/tongjikuang@2x.png");
+      background: url("/assets/2d/img/tongjikuang@2x.png");
       background-size: 100% 100%;
       p {
         padding: 0 vw(25) 0 vw(25);
@@ -172,7 +172,7 @@ const equipmentArray = [
         width: vw(168);
         height: vh(41);
         padding: 0 vw(5);
-        background: url("../../public/assets/2d/img/shebeikuang@2x.png");
+        background: url("/assets/2d/img/shebeikuang@2x.png");
         background-size: 100% 100%;
         text-align: center;
         display: flex;
