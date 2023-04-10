@@ -15,7 +15,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       orbitCamera: {
         position: [STATE.initialState.position.x, STATE.initialState.position.y, STATE.initialState.position.z],
         near: 1,
-        far: 300,
+        far: 10000,
         fov: 30
       }
     },
@@ -36,16 +36,17 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       directionLights: [{ color: 0xedeacc, intensity: 1.0, position: [20.3, 70, 40.2], mapSize: [4096, 4096], near: 10, far: 15000, bias: -0.001, distance: 8000 }],
       ambientLight: {
         color: '#ffffff',
-        intensity: 0
+        intensity: 1
       }
     },
     background: {
       type: 'color',
-      value: '#333333'
+      value: '#00080d'
     },
-    modelUrls: ['/model/白模.glb'],
+    // modelUrls: ["/model/白模.glb"],
+    modelUrls: ["/model/rezha.glb"],
     hdrUrls: ['/hdr/HDR.hdr'],
-    enableShadow: false,
+    enableShadow: true,
     antiShake: false,
     // fog: {
     //   color: '#2c4027',
@@ -60,7 +61,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       supersampling: false
     },
     gammaEnabled: true,
-    stats: true,
+    stats: false,
     // loadingBar: {
     //   show: true,
     //   type: 10
@@ -70,16 +71,18 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       CACHE.container = evt
       window.container = evt
 
-      evt.sceneModels[0].scale.set(2, 2, 2)
-      evt.sceneModels[0].traverse((m) => {
-        if (m.isMesh) {
-          const matOpts = Object.assign({ envMap: evt.envMap }, DATA.materialOpts[m.name])
+      // evt.sceneModels[0].scale.set(2, 2, 2)
+      // evt.sceneModels[0].traverse((m) => {
+      //   if (m.isMesh) {
+      //     const matOpts = Object.assign({ envMap: evt.envMap }, DATA.materialOpts[m.name])
 
-          m.material = new Bol3D.MeshStandardMaterial(matOpts)
-        }
-      })
+      //     m.material = new Bol3D.MeshStandardMaterial(matOpts)
+      //   }
+      // })
 
-      API.loadGUI()
+      // API.findModelXYZ(container.sceneModels[0])
+      // API.setModelPosition(container.sceneModels[0])
+      // API.loadGUI()
       callback && callback()
     }
   })

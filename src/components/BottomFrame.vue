@@ -58,8 +58,7 @@ const equipmentArray = [
               <span>加热炉2</span>
               <span>除鳞泵</span>
               <span style="color: #ffffff; text-shadow: 0 0 10px #ffffff">
-                粗轧</span
-              >
+                粗轧</span>
               <span> 精轧 </span>
             </div>
             <span>＞</span>
@@ -87,6 +86,7 @@ const equipmentArray = [
   width: vw(696);
   height: vh(225);
   pointer-events: all;
+
   .team {
     width: vw(696);
     height: vh(186);
@@ -103,20 +103,26 @@ const equipmentArray = [
       padding: vw(12) 0 vw(12) 0;
       color: #cacbce;
       display: flex;
-      flex-direction: column;
       flex-wrap: wrap;
       justify-content: center;
       background: url("/assets/2d/img/tongjikuang@2x.png");
       background-size: 100% 100%;
+
+      span {
+        white-space: nowrap;
+      }
+
       p {
         padding: 0 vw(25) 0 vw(25);
       }
+
       :nth-child(n) {
         display: flex;
         font-size: rem(14);
         align-items: center;
         justify-content: center;
         text-align: center;
+
         .unit {
           font-size: rem(12);
         }
@@ -124,6 +130,7 @@ const equipmentArray = [
     }
   }
 }
+
 .boxContainer {
   background-color: $boxColor;
 }
@@ -134,31 +141,38 @@ const equipmentArray = [
   bottom: vh(30);
   width: vw(700);
   pointer-events: all;
+
   .equipment {
     width: vw(700);
     height: vh(186);
     margin-top: vh(17);
     padding: 0 wh(30);
+
     .equipmentsBtn {
       display: flex;
       padding: 20px 20px 10px 20px;
       padding: vh(15) vw(20) vh(10) vw(20);
       color: #0e66af;
+
       .spans {
         display: flex;
         flex: 1;
         margin: 0 vw(15);
+
         span {
           flex: 1;
         }
+
         :nth-child(-n + 3):nth-child(n + 2) {
           text-align: center;
         }
+
         :last-child {
           text-align: right;
         }
       }
     }
+
     ul {
       width: vw(700);
       height: vh(135);
@@ -168,6 +182,7 @@ const equipmentArray = [
       justify-content: center;
       align-items: center;
       margin: 0 vw(50) 0 0;
+
       li {
         width: vw(168);
         height: vh(41);
@@ -177,11 +192,13 @@ const equipmentArray = [
         text-align: center;
         display: flex;
         position: relative;
+
         :first-child {
           padding-left: vw(26);
           line-height: vh(41);
           font-size: rem(14);
         }
+
         :last-child {
           display: block;
           width: 12px;

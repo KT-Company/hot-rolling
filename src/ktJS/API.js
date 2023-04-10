@@ -29,7 +29,7 @@ function cameraAnimation({ cameraState, callback, delayTime = 0, duration = 800 
       },
       duration
     )
-    .onUpdate(() => {})
+    .onUpdate(() => { })
     .onComplete(() => {
       count++
 
@@ -51,7 +51,7 @@ function cameraAnimation({ cameraState, callback, delayTime = 0, duration = 800 
       },
       duration
     )
-    .onUpdate(() => {})
+    .onUpdate(() => { })
     .onComplete(() => {
       count++
       if (count == 2) {
@@ -87,7 +87,7 @@ function loadGUI() {
   scenesFolder.add(CACHE.container.directionLights[0].position, 'x')
   scenesFolder.add(CACHE.container.directionLights[0].position, 'y')
   scenesFolder.add(CACHE.container.directionLights[0].position, 'z')
-  scenesFolder.add(deafultsScene, 'distance').onChange((val) => {
+  scenesFolder.add(deafultsScene, 'distance').step(100).onChange((val) => {
     CACHE.container.directionLights[0].shadow.camera.left = -val
     CACHE.container.directionLights[0].shadow.camera.right = val
     CACHE.container.directionLights[0].shadow.camera.top = val
@@ -95,11 +95,11 @@ function loadGUI() {
     CACHE.container.directionLights[0].shadow.camera.updateProjectionMatrix()
     CACHE.container.directionLights[0].shadow.needsUpdate = true
   })
-  scenesFolder.add(CACHE.container.directionLights[0].shadow.camera, 'far').onChange(() => {
+  scenesFolder.add(CACHE.container.directionLights[0].shadow.camera, 'far').step(100).onChange(() => {
     CACHE.container.directionLights[0].shadow.camera.updateProjectionMatrix()
     CACHE.container.directionLights[0].shadow.needsUpdate = true
   })
-  scenesFolder.add(CACHE.container.directionLights[0].shadow.camera, 'near').onChange(() => {
+  scenesFolder.add(CACHE.container.directionLights[0].shadow.camera, 'near').step(100).onChange(() => {
     CACHE.container.directionLights[0].shadow.camera.updateProjectionMatrix()
     CACHE.container.directionLights[0].shadow.needsUpdate = true
   })
@@ -163,10 +163,63 @@ function loadGUI() {
       CACHE.container.filterPass.filterMaterial.uniforms.contrast.value = val
     })
 
-  
+
 }
 
+/**
+ * 设置模型位置(position)，旋转(rotation)，缩放(scale),有该属性的物体亦可
+ * @param {object} mesh 待操作模型
+ */
+function setModelPosition(mesh) {
+  const controls = CACHE.container.transformControl
+  const gui = new dat.GUI()
+  const options = {
+    transformModel: "translate"
+  }
+  gui.add(options, 'transformModel', ["translate", 'rotate', 'scale']).onChange(val => controls.setMode(val))
+  const positionX = gui.add(mesh.position, 'x').onChange(val => mesh.position.x = val).name('positionX')
+  const positionY = gui.add(mesh.position, 'y').onChange(val => mesh.position.y = val).name('positionY')
+  const positionZ = gui.add(mesh.position, 'z').onChange(val => mesh.position.z = val).name('positionZ')
+  const rotationX = gui.add(mesh.rotation, 'x').step(0.01).onChange(val => mesh.rotation.x = val).name('rotationX')
+  const rotationY = gui.add(mesh.rotation, 'y').step(0.01).onChange(val => mesh.rotation.y = val).name('rotationY')
+  const rotationZ = gui.add(mesh.rotation, 'z').step(0.01).onChange(val => mesh.rotation.z = val).name('rotationZ')
+  const scaleX = gui.add(mesh.scale, "x").step(0.1).onChange(val => mesh.scale.x = val).name('scaleX')
+  const scaleY = gui.add(mesh.scale, "y").step(0.1).onChange(val => mesh.scale.y = val).name('scaleY')
+  const scaleZ = gui.add(mesh.scale, "z").step(0.1).onChange(val => mesh.scale.z = val).name('scaleZ')
+  controls.attach(mesh)
+  controls.addEventListener("change", (e) => {
+    positionX.setValue(mesh.position.x)
+    positionY.setValue(mesh.position.y)
+    positionZ.setValue(mesh.position.z)
+    rotationX.setValue(mesh.rotation.x)
+    rotationY.setValue(mesh.rotation.y)
+    rotationZ.setValue(mesh.rotation.z)
+    scaleX.setValue(mesh.scale.x)
+    scaleY.setValue(mesh.scale.y)
+    scaleZ.setValue(mesh.scale.z)
+  })
+}
+
+
+/**
+ * 查看模型长宽高
+ * @param {object} mesh 待操作模型 
+ */
+function findModelXYZ(mesh) {
+  // 计算模型的 bounding box
+  const box = new Bol3D.Box3().setFromObject(container.sceneModels[0]);
+  // 获取 bounding box 的长宽高
+  const width = box.max.x - box.min.x;
+  const height = box.max.y - box.min.y;
+  const depth = box.max.z - box.min.z;
+  // 创建 Box3Helper 对象，并将其添加到场景中
+  const helper = new Bol3D.Box3Helper(box, 0xffff00);
+  container.attach(helper);
+  console.log(`模型的x为：${width} , y为${height} , z为${depth}`);
+}
 export const API = {
   cameraAnimation,
-  loadGUI
+  loadGUI,
+  setModelPosition,
+  findModelXYZ
 }

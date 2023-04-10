@@ -33,10 +33,10 @@ function changebtn(e) {
       <div v-for="(top, index) in topArray" :key="index">{{ top }}</div>
     </div>
     <!-- <div id="showTime">
-      <span>{{ curTime }}}</span>
-      <span>{{ curWeek }}}</span>
-      <button id="close2D">关闭</button>
-    </div> -->
+          <span>{{ curTime }}}</span>
+          <span>{{ curWeek }}}</span>
+          <button id="close2D">关闭</button>
+        </div> -->
   </div>
 </template>
 
@@ -44,6 +44,7 @@ function changebtn(e) {
 #top {
   pointer-events: all;
   display: flex;
+
   #titleBar {
     width: vw(1244);
     height: vh(137);
@@ -52,9 +53,11 @@ function changebtn(e) {
     background-size: 200% 100%;
     display: flex;
   }
+
   div :first-child {
     margin-left: vw(443);
   }
+
   div {
     width: vw(148);
     height: vh(86);

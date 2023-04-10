@@ -53,9 +53,9 @@ onMounted(() => {
   height: 100%;
   z-index: 2;
   position: absolute;
-  background: url("/assets/2d/img/方大特钢热轧1.png");
   background-size: 100% 100%;
 }
+
 .left {
   /* width: 500px; */
   /* height: 500px; */
