@@ -43,7 +43,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       type: 'color',
       value: '#00080d'
     },
-    modelUrls: ["/model/cx1.glb"],
+    modelUrls: ["/model/cx2.glb"],
     hdrUrls: ['/hdr/HDR.hdr'],
     enableShadow: true,
     antiShake: false,
