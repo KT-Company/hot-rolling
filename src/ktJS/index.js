@@ -25,7 +25,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
         autoRotateSpeed: 1,
         target: [STATE.initialState.target.x, STATE.initialState.target.y, STATE.initialState.target.z],
         // minDistance: 0,
-        // maxDistance: 2500,
+        // maxDistance: 25,
         maxPolarAngle: Math.PI * 0.44,
         minPolarAngle: Math.PI * 0.05,
         enableDamping: true,
@@ -43,8 +43,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       type: 'color',
       value: '#00080d'
     },
-    // modelUrls: ["/model/白模.glb"],
-    modelUrls: ["/model/rezha.glb"],
+    modelUrls: ["/model/cx1.glb"],
     hdrUrls: ['/hdr/HDR.hdr'],
     enableShadow: true,
     antiShake: false,
@@ -80,12 +79,48 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   }
       // })
 
+      // API.showTargetPositon()
+
+
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
       // API.loadGUI()
       callback && callback()
+
+
+      const popup1 = new Bol3D.POI.Popup({
+        position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
+        value: `<p style="margin:0;color: #ffffff;margin-left: 20px;">编号：A22336</p>`
+          + `<p style="margin:0;color: #ffffff;margin-left: 20px;">设备情况：正常</p>`,
+        className: 'popup1',
+        style: `background: rgba(1, 19, 67, 0.8);` + `border: 2px solid #00a1ff;` + `border-radius: 8px;` + `width: 160px;height: 45px;`,
+        closeVisible: 'visible'
+      })
+
+      // container.attach(popup1)
+
+
+
+
+      // const popup2 = new Bol3D.POI.Popup3D({
+      //   value: `<div style="margin:0;color: #ffffff;margin-left: 20px; z-index:9">编号：A22336</div>`,
+      //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
+      //   className: 'popup2',
+      //   scale: [1, 1, 1],
+      //   closeVisible: 'visible'
+      // })
+
+      // container.attach(popup2)
+
+
+
+
+
+
     }
+
   })
+
 
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => { }

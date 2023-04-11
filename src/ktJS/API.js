@@ -217,9 +217,37 @@ function findModelXYZ(mesh) {
   container.attach(helper);
   console.log(`模型的x为：${width} , y为${height} , z为${depth}`);
 }
+
+/**
+ * 显示orbitCamera的position和orbitControls的target
+ */
+function showTargetPositon() {
+  let mypt = {
+    position: "",
+    target: ""
+  }
+  const gui = new dat.GUI()
+  const guiPosition = gui.add(mypt, "position")
+  const guiTarget = gui.add(mypt, "target")
+
+  container.orbitControls.addEventListener("end", () => {
+    const position = container.orbitCamera.position
+    const pString = '{x:' + position.x + ",y:" + position.y + ',z:' + position.z + "}"
+    guiPosition.setValue(pString)
+    const target = container.orbitControls.target
+    const tString = '{x:' + target.x + ",y:" + target.y + ',z:' + target.z + "}"
+    guiTarget.setValue(tString)
+  })
+}
+
+function addicon() {
+
+}
+
 export const API = {
   cameraAnimation,
   loadGUI,
   setModelPosition,
-  findModelXYZ
+  findModelXYZ,
+  showTargetPositon
 }
