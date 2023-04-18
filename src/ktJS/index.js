@@ -54,13 +54,21 @@ export const sceneOnLoad = ({ domElement, callback }) => {
     toneMapping: {
       toneMappingExposure: 0.596
     },
-    outlineEnabled: false,
+    outlineEnabled: true,
+    outline: {
+      edgeStrength: 3,
+      edgeGlow: 0,
+      edgeThickness: 1,
+      pulsePeriod: 1.5,//脉冲周期
+      visibleEdgeColor: '#98e10f',
+      hiddenEdgeColor: '#190a05'
+    },
     dofEnabled: false,
     msaa: {
       supersampling: false
     },
     gammaEnabled: true,
-    stats: false,
+    stats: true,
     // loadingBar: {
     //   show: true,
     //   type: 10
@@ -79,7 +87,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   }
       // })
 
-      // API.showTargetPositon()
+      API.showTargetPositon()
 
 
       // API.findModelXYZ(container.sceneModels[0])
@@ -125,5 +133,27 @@ export const sceneOnLoad = ({ domElement, callback }) => {
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => { }
 
-  events.onhover = (e) => { }
+  events.onhover = (e) => {
+
+    /** 
+        * 鼠标悬浮在模型上，模型闪烁，注意开启outlineEnabled和outline配置项中的pulsePeriod控制脉冲周期。
+        * @param  {object}  target  待选中的模型
+        */
+    function checkBlinking(target) {
+      let blink = null
+      return (function () {
+        if (target && blink != target) {
+          blink = target
+          CACHE.container.outlineObjects = []
+          CACHE.container.outlineObjects.push(target)
+        }
+        if (!target) {
+          CACHE.container.outlineObjects = []
+          blink = null
+        }
+      })()
+    }
+    checkBlinking(e.objects[0].object)
+
+  }
 }
