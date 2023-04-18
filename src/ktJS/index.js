@@ -54,13 +54,22 @@ export const sceneOnLoad = ({ domElement, callback }) => {
     toneMapping: {
       toneMappingExposure: 0.596
     },
-    outlineEnabled: false,
+    outlineEnabled: true,
+    outline: {
+      edgeStrength: 3,
+      edgeGlow: 0,
+      edgeThickness: 1,
+      //脉冲周期，控制闪烁
+      pulsePeriod: 0,
+      visibleEdgeColor: '#98e10f',
+      hiddenEdgeColor: '#190a05'
+    },
     dofEnabled: false,
     msaa: {
       supersampling: false
     },
     gammaEnabled: true,
-    stats: false,
+    stats: true,
     // loadingBar: {
     //   show: true,
     //   type: 10
@@ -79,7 +88,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   }
       // })
 
-      // API.showTargetPositon()
+      API.showTargetPositon()
 
 
       // API.findModelXYZ(container.sceneModels[0])
@@ -88,14 +97,14 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       callback && callback()
 
 
-      const popup1 = new Bol3D.POI.Popup({
-        position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
-        value: `<p style="margin:0;color: #ffffff;margin-left: 20px;">编号：A22336</p>`
-          + `<p style="margin:0;color: #ffffff;margin-left: 20px;">设备情况：正常</p>`,
-        className: 'popup1',
-        style: `background: rgba(1, 19, 67, 0.8);` + `border: 2px solid #00a1ff;` + `border-radius: 8px;` + `width: 160px;height: 45px;`,
-        closeVisible: 'visible'
-      })
+      // const popup1 = new Bol3D.POI.Popup({
+      //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
+      //   value: `<p style="margin:0;color: #ffffff;margin-left: 20px;">编号：A22336</p>`
+      //     + `<p style="margin:0;color: #ffffff;margin-left: 20px;">设备情况：正常</p>`,
+      //   className: 'popup1',
+      //   style: `background: rgba(1, 19, 67, 0.8);` + `border: 2px solid #00a1ff;` + `border-radius: 8px;` + `width: 160px;height: 45px;`,
+      //   closeVisible: 'visible'
+      // })
 
       // container.attach(popup1)
 
@@ -115,15 +124,49 @@ export const sceneOnLoad = ({ domElement, callback }) => {
 
 
 
-
-
     }
 
   })
 
 
   const events = new Bol3D.Events(container)
-  events.ondbclick = (e) => { }
+  events.ondbclick = (e) => {
 
-  events.onhover = (e) => { }
+
+    /** 
+* 模型聚焦，获取模型中心位置，在此基础上调整相机位置\
+* @param  {object}  target  待显示信息的模型
+*/
+    function modelFocused(model) {
+      if (model) {
+        const box = new Bol3D.Box3().setFromObject(model);
+        const res = box.getCenter(new Bol3D.Vector3)
+        console.log(res);
+        const cameraState = { position: { x: res.x, y: res.y + 20, z: res.z - 50 }, target: { x: res.x, y: res.y, z: res.z } }
+        API.cameraAnimation({ cameraState })
+        // { x: 31.17760682253115, y: 1.3698441467524065, z: 29.373091007063447 }
+        // { x: 31.177606822531153, y: 12.94721880939462, z: -21.48664434341215 }
+      }
+    }
+
+    modelFocused(e.objects[0]?.object)
+
+  }
+
+  events.onhover = (e) => {
+    // console.log(e.objects[0]);
+    API.checkBlinking(e.objects[0]?.object)
+    // const name = e
+    // const objectsNameMap = {
+    //   设备1: () => {
+
+    //   },
+    //   设备2: () => {
+
+    //   },
+
+    // };
+    // objectsNameMap[name] ? objectsNameMap[name]() : "";
+
+  }
 }

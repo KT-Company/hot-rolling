@@ -394,35 +394,21 @@ function handlerSelect() {
           <ul>
             <li v-for="(item, index) in energyEnvironmentArray" :key="index">
               <div class="downPng">
-                <div
-                  class="upPng"
-                  :style="{
-                    background: `url(${item.url})`,
-                    backgroundSize: '100% 100%',
-                  }"
-                ></div>
+                <div class="upPng" :style="{
+                  background: `url(${item.url})`,
+                  backgroundSize: '100% 100%',
+                }"></div>
               </div>
               <div class="energyData">
                 <span>{{ item.name }}</span>
-                <span
-                  >{{ item.value
-                  }}<span class="unit">{{ item.unit }}</span></span
-                >
+                <span>{{ item.value
+                }}<span class="unit">{{ item.unit }}</span></span>
               </div>
             </li>
           </ul>
-          <el-select
-            v-model="Optionparent"
-            class="m-2"
-            placeholder="Select"
-            @change="handlerSelect(value)"
-          >
-            <el-option
-              v-for="(item, index) in energyOptions"
-              :label="item.label"
-              :value="item.value"
-              :key="index"
-            ></el-option>
+          <el-select v-model="Optionparent" class="m-2" placeholder="Select" @change="handlerSelect(value)">
+            <el-option v-for="(item, index) in energyOptions" :label="item.label" :value="item.value"
+              :key="index"></el-option>
           </el-select>
           <button>月</button>
           <button>年</button>
@@ -463,6 +449,8 @@ function handlerSelect() {
   position: absolute;
   right: vw(30);
   top: vh(43);
+  pointer-events: none;
+
   .rightLineEchart {
     width: vw(380);
     height: vh(186);
@@ -478,10 +466,12 @@ function handlerSelect() {
   right: vw(30);
   top: vh(308);
   color: #cacbce;
+
   .energy {
     width: vw(380);
     height: vh(473);
     margin-top: vh(21);
+
     ul {
       width: vw(380);
       height: 50%;
@@ -489,9 +479,11 @@ function handlerSelect() {
       flex-wrap: wrap;
       justify-content: center;
       align-content: center;
+
       li {
         width: 25%;
         height: 50%;
+
         .downPng {
           width: vw(72);
           height: vh(73);
@@ -501,6 +493,7 @@ function handlerSelect() {
           align-items: center;
           background: url("/assets/2d/img/tubiaobeijng@2x.png");
           background-size: 100% 100%;
+
           .upPng {
             width: vw(50);
             height: vh(50);
@@ -508,25 +501,31 @@ function handlerSelect() {
             text-align: center;
             z-index: 2;
             animation: upAndDown 2.5s infinite;
+
             @keyframes upAndDown {
               0% {
                 margin-bottom: vh(-12);
               }
+
               50% {
                 margin-bottom: vh(12);
               }
+
               100% {
                 margin-bottom: vh(-12);
               }
             }
           }
         }
+
         .energyData {
           height: 40%;
           display: flex;
           flex-direction: column;
+
           span {
             text-align: center;
+
             .unit {
               font-size: rem(12);
             }
@@ -544,15 +543,18 @@ function handlerSelect() {
       background: url("/assets/2d/img/yue@2x.png");
       background-size: 100% 100%;
     }
+
     .energyUnit {
       margin-left: vw(80);
       font-size: rem(14);
     }
+
     .rightBarEchart {
       height: 50%;
     }
   }
 }
+
 .productionOverview {
   width: vw(380);
   height: vh(225);
@@ -562,25 +564,31 @@ function handlerSelect() {
   color: #cacbce;
   pointer-events: all;
   font-size: rem(14);
+
   .production {
     height: vh(186);
     margin-top: vh(17);
+
     .title {
       display: flex;
       padding-top: vh(20);
+
       span {
         flex: 1;
       }
+
       :nth-child(2n-1) {
         text-align: center;
       }
     }
+
     ul {
       // margin: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       li {
         width: vw(350);
         height: vh(41);
@@ -590,11 +598,13 @@ function handlerSelect() {
         background: url("/assets/2d/img/changkuang@2x.png");
         background-size: 100% 100%;
         text-align: justify;
+
         span {
           display: block;
           flex: 1;
           line-height: vh(41);
         }
+
         :last-child {
           text-align: right;
         }
@@ -602,6 +612,7 @@ function handlerSelect() {
     }
   }
 }
+
 .boxContainer {
   background-color: $boxColor;
 }
@@ -611,29 +622,35 @@ function handlerSelect() {
   width: vw(80);
   height: vh(40);
 }
+
 :deep(.el-popper.is-light) {
   background: none;
 }
+
 :deep(.el-input) {
   --el-input-text-color: #ffffff;
 }
+
 :deep(.el-select) {
   --el-select-input-focus-border-color: none !important;
   background: url("/assets/2d/img/jingshui1@2x.png");
   background-size: 100% 100%;
   --el-select-input-color: #ffffff;
 }
+
 :deep(.el-input__wrapper) {
   background: none;
   box-shadow: none !important;
 }
+
 :deep(.el-select .el-input.is-focus .el-input__wrapper) {
   box-shadow: none !important;
 }
+
 :deep(.el-select .el-input__wrapper.is-focus) {
   box-shadow: none !important;
 }
+
 :deep(.el-select:hover:not(.el-select--disabled) .el-input__wrapper) {
   box-shadow: none !important;
-}
-</style>
+}</style>
