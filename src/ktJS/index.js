@@ -59,7 +59,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       edgeStrength: 3,
       edgeGlow: 0,
       edgeThickness: 1,
-      pulsePeriod: 1.5,//脉冲周期
+      pulsePeriod: 0,
       visibleEdgeColor: '#98e10f',
       hiddenEdgeColor: '#190a05'
     },
@@ -87,7 +87,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   }
       // })
 
-      API.showTargetPositon()
+      // API.showTargetPositon()
 
 
       // API.findModelXYZ(container.sceneModels[0])
@@ -135,25 +135,8 @@ export const sceneOnLoad = ({ domElement, callback }) => {
 
   events.onhover = (e) => {
 
-    /** 
-        * 鼠标悬浮在模型上，模型闪烁，注意开启outlineEnabled和outline配置项中的pulsePeriod控制脉冲周期。
-        * @param  {object}  target  待选中的模型
-        */
-    function checkBlinking(target) {
-      let blink = null
-      return (function () {
-        if (target && blink != target) {
-          blink = target
-          CACHE.container.outlineObjects = []
-          CACHE.container.outlineObjects.push(target)
-        }
-        if (!target) {
-          CACHE.container.outlineObjects = []
-          blink = null
-        }
-      })()
-    }
-    checkBlinking(e.objects[0].object)
+    console.log(e);
+    API.checkBlinking(e.objects[0]?.object)
 
   }
 }
