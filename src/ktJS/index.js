@@ -87,7 +87,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   }
       // })
 
-      // API.showTargetPositon()
+      API.showTargetPositon()
 
 
       // API.findModelXYZ(container.sceneModels[0])
@@ -135,8 +135,14 @@ export const sceneOnLoad = ({ domElement, callback }) => {
 
   events.onhover = (e) => {
 
-    console.log(e);
-    API.checkBlinking(e.objects[0]?.object)
+
+    if (e.objects.length > 0) {
+
+      API.checkBlinking(e.objects[0]?.object)
+
+    }
+
+
 
   }
 }
