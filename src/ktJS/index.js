@@ -77,7 +77,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
 
     onProgress: (model) => {
       //单独处理具体模型object3d和点击
-      const deviceGrop = ['JiaReLu', 'CuZha', 'BaoWenZhao', 'JinZha', 'ChaoKuaiLen', 'CengLiuLen', 'JuanQu']
+      const deviceGrop = ['JiaReLu', 'CuZha', 'JinZha', 'CengLiuLen', 'JuanQu']
       model.traverse(obj3d => {
         //判断是否我要的几个模型
         if (deviceGrop.includes(obj3d.name)) {
@@ -133,6 +133,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => {
     const name = e.objects[0]?.object.userData.name
+    console.log(name);
     //模型聚焦
     if (Object.keys(STATE.deviceFocusState).includes(name)) {
       API.cameraAnimation({ cameraState: STATE.deviceFocusState[name] })

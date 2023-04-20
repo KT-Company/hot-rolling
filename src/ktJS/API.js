@@ -280,26 +280,6 @@ function getMesh(group) {
 }
 
 
-
-/** 
-    * 鼠标悬浮在模型上，模型闪烁，注意开启outlineEnabled和outline配置项中的pulsePeriod控制脉冲周期。
-    * @param  {object}  target  待选中的模型
-    */
-function checkBlinking(target) {
-  let blink = null
-  return (function () {
-    if (target && blink != target) {
-      blink = target
-      CACHE.container.outlineObjects = []
-      CACHE.container.outlineObjects.push(target)
-    }
-    if (!target) {
-      CACHE.container.outlineObjects = []
-      blink = null
-    }
-  })()
-}
-
 export const API = {
   cameraAnimation,
   loadGUI,
@@ -308,6 +288,5 @@ export const API = {
   showTargetPositon,
   checkBlinking,
   getMesh,
-,
   checkBlinking
 }
