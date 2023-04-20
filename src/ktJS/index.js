@@ -101,7 +101,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       container.clickObjects = Object.values(CACHE.deviceClickObjects).flat()
       container.loadingBar.style.visibility = 'hidden'
 
-      // API.showTargetPositon()
+      API.showTargetPositon()
 
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
