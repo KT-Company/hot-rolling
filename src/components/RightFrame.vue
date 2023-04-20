@@ -449,7 +449,7 @@ function handlerSelect() {
   position: absolute;
   right: vw(30);
   top: vh(43);
-  pointer-events: none;
+  // pointer-events: none;
 
   .rightLineEchart {
     width: vw(380);
@@ -653,4 +653,5 @@ function handlerSelect() {
 
 :deep(.el-select:hover:not(.el-select--disabled) .el-input__wrapper) {
   box-shadow: none !important;
-}</style>
+}
+</style>

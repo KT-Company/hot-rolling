@@ -264,11 +264,30 @@ function addicon() {
 
 }
 
+
+
+/**
+ * 查找group上所有mesh，放进数组返回
+ * @param {object} group 带查找的group,也可以是单独一个mesh
+ * @returns {array} // 返回mesh数组
+ */
+function getMesh(group) {
+  let myArr = []
+  group.traverse(mesh => {
+    if (mesh.isMesh) myArr.push(mesh)
+  })
+  return myArr
+}
+
+
+
 export const API = {
   cameraAnimation,
   loadGUI,
   setModelPosition,
   findModelXYZ,
   showTargetPositon,
-  checkBlinking
+  checkBlinking,
+  getMesh,
+
 }

@@ -69,33 +69,44 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       supersampling: false
     },
     gammaEnabled: true,
-    stats: true,
-    // loadingBar: {
-    //   show: true,
-    //   type: 10
-    // }
+    stats: false,
+    loadingBar: {
+      show: true,
+      type: 10
+    },
 
+    onProgress: (model) => {
+      //单独处理具体模型object3d和点击
+      const deviceGrop = ['JiaReLu', 'CuZha', 'BaoWenZhao', 'JinZha', 'ChaoKuaiLen', 'CengLiuLen', 'JuanQu']
+      model.traverse(obj3d => {
+        //判断是否我要的几个模型
+        if (deviceGrop.includes(obj3d.name)) {
+          //保存该模型
+          // CACHE.deviceObject3D[obj3d.name] = obj3d
+          obj3d.traverse(mesh => {
+            mesh.userData.name = obj3d.name
+          })
+          //保存该模型的点击事件
+          CACHE.deviceClickObjects[obj3d.name].push(...API.getMesh(obj3d))
+        }
+      })
+
+    },
     onLoad: (evt) => {
       CACHE.container = evt
       window.container = evt
+      console.log('click', CACHE.deviceClickObjects);
+      console.log('obj3d', CACHE.deviceObject3D);
+      //更换点击对象，获取deviceClickObjects的value值，用flat将二维数组降为一维
+      container.clickObjects = Object.values(CACHE.deviceClickObjects).flat()
+      container.loadingBar.style.visibility = 'hidden'
 
-      // evt.sceneModels[0].scale.set(2, 2, 2)
-      // evt.sceneModels[0].traverse((m) => {
-      //   if (m.isMesh) {
-      //     const matOpts = Object.assign({ envMap: evt.envMap }, DATA.materialOpts[m.name])
-
-      //     m.material = new Bol3D.MeshStandardMaterial(matOpts)
-      //   }
-      // })
-
-      API.showTargetPositon()
-
+      // API.showTargetPositon()
 
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
       // API.loadGUI()
       callback && callback()
-
 
       // const popup1 = new Bol3D.POI.Popup({
       //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
@@ -107,10 +118,6 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       // })
 
       // container.attach(popup1)
-
-
-
-
       // const popup2 = new Bol3D.POI.Popup3D({
       //   value: `<div style="margin:0;color: #ffffff;margin-left: 20px; z-index:9">编号：A22336</div>`,
       //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
@@ -118,12 +125,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       //   scale: [1, 1, 1],
       //   closeVisible: 'visible'
       // })
-
       // container.attach(popup2)
-
-
-
-
     }
 
   })
@@ -131,31 +133,15 @@ export const sceneOnLoad = ({ domElement, callback }) => {
 
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => {
-
-
-    /** 
-* 模型聚焦，获取模型中心位置，在此基础上调整相机位置\
-* @param  {object}  target  待显示信息的模型
-*/
-    function modelFocused(model) {
-      if (model) {
-        const box = new Bol3D.Box3().setFromObject(model);
-        const res = box.getCenter(new Bol3D.Vector3)
-        console.log(res);
-        const cameraState = { position: { x: res.x, y: res.y + 20, z: res.z - 50 }, target: { x: res.x, y: res.y, z: res.z } }
-        API.cameraAnimation({ cameraState })
-        // { x: 31.17760682253115, y: 1.3698441467524065, z: 29.373091007063447 }
-        // { x: 31.177606822531153, y: 12.94721880939462, z: -21.48664434341215 }
-      }
+    const name = e.objects[0]?.object.userData.name
+    //模型聚焦
+    if (Object.keys(STATE.deviceFocusState).includes(name)) {
+      API.cameraAnimation({ cameraState: STATE.deviceFocusState[name] })
     }
-
-    modelFocused(e.objects[0]?.object)
 
   }
 
   events.onhover = (e) => {
-    // console.log(e.objects[0]);
-    API.checkBlinking(e.objects[0]?.object)
     // const name = e
     // const objectsNameMap = {
     //   设备1: () => {

@@ -2,7 +2,6 @@ import * as echarts from "echarts";
 
 
 export function energyOption() {
-    console.log("option");
     return {
         grid: {
             top: "5%",
