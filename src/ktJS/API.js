@@ -240,9 +240,46 @@ function showTargetPositon() {
   })
 }
 
+
+/** 
+ * 鼠标悬浮在模型上，模型闪烁，注意开启outlineEnabled和outline配置项中的pulsePeriod控制脉冲周期。
+ * @param  {object}  target  待选中的模型
+ */
+function checkBlinking(target) {
+  let blink = null
+  return (function () {
+    if (target && blink != target) {
+      blink = target
+      CACHE.container.outlineObjects = []
+      CACHE.container.outlineObjects.push(target)
+    }
+    if (!target) {
+      CACHE.container.outlineObjects = []
+      blink = null
+    }
+  })()
+}
+
 function addicon() {
 
 }
+
+
+
+/**
+ * 查找group上所有mesh，放进数组返回
+ * @param {object} group 带查找的group,也可以是单独一个mesh
+ * @returns {array} // 返回mesh数组
+ */
+function getMesh(group) {
+  let myArr = []
+  group.traverse(mesh => {
+    if (mesh.isMesh) myArr.push(mesh)
+  })
+  return myArr
+}
+
+
 
 /** 
     * 鼠标悬浮在模型上，模型闪烁，注意开启outlineEnabled和outline配置项中的pulsePeriod控制脉冲周期。
@@ -269,5 +306,8 @@ export const API = {
   setModelPosition,
   findModelXYZ,
   showTargetPositon,
+  checkBlinking,
+  getMesh,
+,
   checkBlinking
 }

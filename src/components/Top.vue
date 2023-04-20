@@ -44,7 +44,6 @@ function changebtn(e) {
 #top {
   pointer-events: all;
   display: flex;
-  pointer-events: none;
 
   #titleBar {
     width: vw(1244);
