@@ -5,7 +5,7 @@ import Popup from "./components/Popup.vue";
 
 <template>
   <Scene />
-  <!-- <router-view></router-view> -->
+  <router-view></router-view>
   <!-- <Popup></Popup> -->
 </template>
 

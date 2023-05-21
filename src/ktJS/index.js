@@ -121,7 +121,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
         container.attach(item.instance)
       })
 
-      API.showTargetPositon()
+      // API.showTargetPositon()
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
       // API.loadGUI()
