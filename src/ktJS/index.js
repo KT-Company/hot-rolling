@@ -78,6 +78,8 @@ export const sceneOnLoad = ({ domElement, callback }) => {
     onProgress: (model) => {
       //单独处理具体模型object3d和点击
       const deviceGrop = ['JiaReLu', 'CuZha', 'JinZha', 'CengLiuLen', 'JuanQu']
+
+      CACHE.deviceIcon = ['JiaReLu_1', 'JiaReLu002_1', 'JiaReLu001_1', 'R_003', 'R_004']
       model.traverse(obj3d => {
         //判断是否我要的几个模型
         if (deviceGrop.includes(obj3d.name)) {
@@ -89,19 +91,32 @@ export const sceneOnLoad = ({ domElement, callback }) => {
           //保存该模型的点击事件
           CACHE.deviceClickObjects[obj3d.name].push(...API.getMesh(obj3d))
         }
+        //popup弹框
+        if (CACHE.deviceIcon.includes(obj3d.name)) {
+          //制作数据为8的popup
+          if (CACHE.devicePopupInformation[obj3d.name].information.length === 8) {
+            API.initPopup8(CACHE.devicePopupInformation[obj3d.name])
+          } else if (CACHE.devicePopupInformation[obj3d.name].information.length === 6) {
+            API.initPopup6(CACHE.devicePopupInformation[obj3d.name])
+          }
+        }
       })
 
     },
     onLoad: (evt) => {
       CACHE.container = evt
       window.container = evt
+      window.CACHE = CACHE
+      window.API = API
       console.log('click', CACHE.deviceClickObjects);
       console.log('obj3d', CACHE.deviceObject3D);
       //更换点击对象，获取deviceClickObjects的value值，用flat将二维数组降为一维
       container.clickObjects = Object.values(CACHE.deviceClickObjects).flat()
       container.loadingBar.style.visibility = 'hidden'
       // API.showTargetPositon()
-
+      Object.values(CACHE.devicePopupInformation).forEach(item => {
+        container.attach(item.instance)
+      })
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
       // API.loadGUI()
@@ -133,10 +148,23 @@ export const sceneOnLoad = ({ domElement, callback }) => {
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => {
     const name = e.objects[0]?.object.userData.name
-    console.log(name);
     //模型聚焦
     if (Object.keys(STATE.deviceFocusState).includes(name)) {
       API.cameraAnimation({ cameraState: STATE.deviceFocusState[name] })
+    }
+    //注意这两个name不同，上一个判断模型组，这一个判断popup框
+    const meshName = e.objects[0]?.object.name
+    console.log(meshName);
+    console.log(e.objects[0]?.object);
+    if (CACHE.deviceIcon.includes(meshName)) {
+
+      //保证页面唯一弹窗，加载前清空弹窗
+      Object.values(CACHE.devicePopupInformation).forEach(item => {
+        item.instance.visible = false
+      })
+      //加载弹窗
+      console.log(CACHE.devicePopupInformation[meshName].instance);
+      CACHE.devicePopupInformation[meshName].instance.visible = true
     }
 
   }
