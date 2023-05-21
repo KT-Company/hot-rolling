@@ -260,10 +260,118 @@ function checkBlinking(target) {
   })()
 }
 
-function addicon() {
+function initPopup8(Data) {
+  const textData = Data.information
 
+  const popup = new Bol3D.POI.Popup({
+    value: ` 
+        <div style=" width: 100%; text-align: center; margin-top: 15px; color:#ffffff">加热炉信息</div>
+        <div style="height: 80%; margin: 10px 20px 10px 20px; ">
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[0].name}</span><span style="color:#ffffff">${textData[0].value}${textData[0].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[1].name}</span><span style="color:#ffffff">${textData[1].value}${textData[1].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[2].name}</span><span style="color:#ffffff">${textData[2].value}${textData[2].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[3].name}</span><span style="color:#ffffff">${textData[3].value}${textData[3].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[4].name}</span><span style="color:#ffffff">${textData[4].value}${textData[4].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[5].name}</span><span style="color:#ffffff">${textData[5].value}${textData[5].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[6].name}</span><span style="color:#ffffff">${textData[6].value}${textData[6].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[7].name}</span><span style="color:#ffffff">${textData[7].value}${textData[7].unit}</span>
+            </p>
+        </div>
+    `,
+    position: Data.position,
+    scale: [1, 1, 1],
+    className: 'popup1',
+    style: `
+    width: 356px;
+    height: 304px;
+    background: url("/assets/3d/img/3DInformation8.png") center/100% 100%; //八个数据
+`,
+    closeVisible: 'visible'
+  })
+  //调整关闭按钮位置
+  popup.element.children[2].style.right = 10 + 'px'
+  popup.element.children[2].style.top = 10 + 'px'
+  popup.element.children[2].style.pointerEvents = 'all'
+  popup.name = Data.name
+  popup.visible = false
+  Data.instance = popup
 }
 
+
+function initPopup6(Data) {
+  const textData = Data.information
+
+  const popup = new Bol3D.POI.Popup({
+    value: ` 
+        <div style=" width: 100%; text-align: center; margin-top: 15px; color:#ffffff">加热炉信息</div>
+        <div style="height: 80%; margin: 10px 20px 10px 20px; ">
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[0].name}</span><span style="color:#ffffff">${textData[0].value}${textData[0].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[1].name}</span><span style="color:#ffffff">${textData[1].value}${textData[1].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[2].name}</span><span style="color:#ffffff">${textData[2].value}${textData[2].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[3].name}</span><span style="color:#ffffff">${textData[3].value}${textData[3].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[4].name}</span><span style="color:#ffffff">${textData[4].value}${textData[4].unit}</span>
+            </p>
+            <p
+                style=" height: 37px; line-height: 37px;  background: url('/assets/3d/img/InformationItem.png') center /100% 100%; width: 100%; margin-top: -7px;display: flex; justify-content: space-between; align-items: center; padding: 0 15px;">
+                <span style="color:#ffffff">${textData[5].name}</span><span style="color:#ffffff">${textData[5].value}${textData[5].unit}</span>
+            </p>
+        </div>
+    `,
+    position: Data.position,
+    scale: [1, 1, 1],
+    className: 'popup1',
+    style: `
+    width: 356px;
+    height: 244px;
+    background: url("/assets/3d/img/3DInformation8.png") center/100% 100%; //八个数据
+`,
+    closeVisible: 'visible'
+  })
+  //调整关闭按钮位置
+  popup.element.children[2].style.right = 10 + 'px'
+  popup.element.children[2].style.top = 10 + 'px'
+  popup.element.children[2].style.pointerEvents = 'all'
+  popup.name = Data.name
+  popup.visible = false
+  Data.instance = popup
+}
 
 
 /**
@@ -289,5 +397,6 @@ export const API = {
   showTargetPositon,
   checkBlinking,
   getMesh,
-
+  initPopup8,
+  initPopup6
 }

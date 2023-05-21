@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import Scene from "@/views/Scene.vue";
+import Popup from "./components/Popup.vue";
 </script>
 
 <template>
   <Scene />
-  <router-view></router-view>
+  <!-- <router-view></router-view> -->
+  <!-- <Popup></Popup> -->
 </template>
 
 <style scoped>

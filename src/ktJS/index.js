@@ -75,57 +75,58 @@ export const sceneOnLoad = ({ domElement, callback }) => {
       type: 10
     },
 
-    onProgress: (model) => {
+    onProgress: (model, c) => {
+      console.log('onprogress参数', model, c);
       //单独处理具体模型object3d和点击
       const deviceGrop = ['JiaReLu', 'CuZha', 'BaoWenZhao', 'JinZha', 'ChaoKuaiLen', 'CengLiuLen', 'JuanQu']
+
+      CACHE.deviceIcon = ['JiaReLu_1', 'LiGun_001', 'LiGun_008', 'LiGun_009', 'CuZhaPingGun_001', 'CuZhaPingGun_006', 'CuZhaPingGun_007', 'CuZhaPingGun_008', 'CuZhaPingGun_009']
+
       model.traverse(obj3d => {
         //判断是否我要的几个模型
         if (deviceGrop.includes(obj3d.name)) {
           //保存该模型
-          // CACHE.deviceObject3D[obj3d.name] = obj3d
+          CACHE.deviceObject3D[obj3d.name] = obj3d
           obj3d.traverse(mesh => {
             mesh.userData.name = obj3d.name
           })
           //保存该模型的点击事件
           CACHE.deviceClickObjects[obj3d.name].push(...API.getMesh(obj3d))
         }
+        if (CACHE.deviceIcon.includes(obj3d.name)) {
+          //制作数据为8的popup
+          if (CACHE.devicePopupInformation[obj3d.name].information.length === 8) {
+            API.initPopup8(CACHE.devicePopupInformation[obj3d.name])
+          } else if (CACHE.devicePopupInformation[obj3d.name].information.length === 6) {
+            API.initPopup6(CACHE.devicePopupInformation[obj3d.name])
+          }
+        }
       })
-
     },
     onLoad: (evt) => {
       CACHE.container = evt
       window.container = evt
+      window.CACHE = CACHE
+      window.API = API
       console.log('click', CACHE.deviceClickObjects);
       console.log('obj3d', CACHE.deviceObject3D);
       //更换点击对象，获取deviceClickObjects的value值，用flat将二维数组降为一维
       container.clickObjects = Object.values(CACHE.deviceClickObjects).flat()
       container.loadingBar.style.visibility = 'hidden'
 
-      API.showTargetPositon()
 
+
+      //加载弹窗
+      Object.values(CACHE.devicePopupInformation).forEach(item => {
+        container.attach(item.instance)
+      })
+
+      API.showTargetPositon()
       // API.findModelXYZ(container.sceneModels[0])
       // API.setModelPosition(container.sceneModels[0])
       // API.loadGUI()
       callback && callback()
 
-      // const popup1 = new Bol3D.POI.Popup({
-      //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
-      //   value: `<p style="margin:0;color: #ffffff;margin-left: 20px;">编号：A22336</p>`
-      //     + `<p style="margin:0;color: #ffffff;margin-left: 20px;">设备情况：正常</p>`,
-      //   className: 'popup1',
-      //   style: `background: rgba(1, 19, 67, 0.8);` + `border: 2px solid #00a1ff;` + `border-radius: 8px;` + `width: 160px;height: 45px;`,
-      //   closeVisible: 'visible'
-      // })
-
-      // container.attach(popup1)
-      // const popup2 = new Bol3D.POI.Popup3D({
-      //   value: `<div style="margin:0;color: #ffffff;margin-left: 20px; z-index:9">编号：A22336</div>`,
-      //   position: [-159.33 / 10, 170.64 / 10, -788.64 / 10],
-      //   className: 'popup2',
-      //   scale: [1, 1, 1],
-      //   closeVisible: 'visible'
-      // })
-      // container.attach(popup2)
     }
 
   })
@@ -134,11 +135,24 @@ export const sceneOnLoad = ({ domElement, callback }) => {
   const events = new Bol3D.Events(container)
   events.ondbclick = (e) => {
     const name = e.objects[0]?.object.userData.name
+    console.log("模型", e.objects[0]?.object);
     //模型聚焦
     if (Object.keys(STATE.deviceFocusState).includes(name)) {
       API.cameraAnimation({ cameraState: STATE.deviceFocusState[name] })
     }
+    //注意这两个name不同，上一个判断模型组，这一个判断popup框
+    const meshName = e.objects[0]?.object.name
+    if (CACHE.deviceIcon.includes(meshName)) {
 
+      //保证页面唯一弹窗，加载前清空弹窗
+      Object.values(CACHE.devicePopupInformation).forEach(item => {
+        item.instance.visible = false
+      })
+
+      //加载弹窗
+      console.log(CACHE.devicePopupInformation[meshName].instance);
+      CACHE.devicePopupInformation[meshName].instance.visible = true
+    }
   }
 
   events.onhover = (e) => {
