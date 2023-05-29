@@ -25,7 +25,7 @@ export const sceneOnLoad = ({ domElement, callback }) => {
         autoRotateSpeed: 1,
         target: [STATE.initialState.target.x, STATE.initialState.target.y, STATE.initialState.target.z],
         // minDistance: 0,
-        // maxDistance: 25,
+        maxDistance: 200,
         maxPolarAngle: Math.PI * 0.44,
         minPolarAngle: Math.PI * 0.05,
         enableDamping: true,
