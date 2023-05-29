@@ -53,7 +53,7 @@ onMounted(() => {
   height: 100%;
   z-index: 2;
   position: absolute;
-  background-size: 100% 100%;
+  background: url("/assets/2d/img/遮罩.png") center /100% 100%;
 }
 
 .left {
