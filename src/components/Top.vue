@@ -1,6 +1,9 @@
 <script setup>
 import * as dayjs from "dayjs";
 import { toArray } from "lodash";
+import { ref } from "vue"
+import { API } from "@/ktJS/API"
+import { STATE } from "@/ktJS/STATE"
 // function dayjsGetTime() {
 //   const curTime = dayjs().format("YYYY/MM/DD");
 //   const week = dayjs().day();
@@ -19,24 +22,28 @@ import { toArray } from "lodash";
 // console.log("getDay: ", curTime);
 // console.log("getDay: ", curWeek);
 const topArray = ["总览", "加热炉", "粗轧", "精轧", "卷取"];
-function changebtn(e) {
-  console.log(e.parent);
-  // console.log(e.target.style["text-shadow"] == 0);
-  e.target.style = "text-shadow: 0 0 10px #ffffff";
+const cameraArray = ['总览', 'JiaReLu', 'CuZha', 'JinZha', 'JuanQu']
+const activeButton = ref(null)
+function changebtn(index) {
+  activeButton.value = index
+  const deviceName = cameraArray[index]
+  API.cameraAnimation({ cameraState: STATE.deviceFocusState[deviceName] })
 }
 </script>
 
 <!-- 热轧产线可视化系统 -->
 <template>
   <div id="top">
-    <div id="titleBar" @click="changebtn">
-      <div v-for="(top, index) in topArray" :key="index">{{ top }}</div>
+    <div id="titleBar">
+      <div v-for="(top, index) in topArray" :key="index" :class="{ 'clickbtn': activeButton === idnex }"
+        @click="changebtn(index)">{{
+          top }}</div>
     </div>
     <!-- <div id="showTime">
-                      <span>{{ curTime }}}</span>
-                      <span>{{ curWeek }}}</span>
-                      <button id="close2D">关闭</button>
-                    </div> -->
+      <span>{{ curTime }}}</span>
+      <span>{{ curWeek }}}</span>
+      <button id="close2D">关闭</button>
+    </div> -->
   </div>
 </template>
 
@@ -44,7 +51,7 @@ function changebtn(e) {
 #top {
   pointer-events: all;
   display: flex;
-  pointer-events: none;
+  pointer-events: all;
 
   #titleBar {
     width: vw(1244);
@@ -53,6 +60,10 @@ function changebtn(e) {
     background-position-x: vw(-1213);
     background-size: 200% 100%;
     display: flex;
+
+    .clickbtn {
+      text-shadow: 0 0 10px #ffffff
+    }
   }
 
   div :first-child {

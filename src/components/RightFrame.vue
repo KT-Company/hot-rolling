@@ -449,7 +449,7 @@ function handlerSelect() {
   position: absolute;
   right: vw(30);
   top: vh(43);
-  pointer-events: none;
+  pointer-events: all;
 
   .rightLineEchart {
     width: vw(380);
