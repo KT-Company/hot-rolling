@@ -64,6 +64,10 @@ function changebtn(index) {
     .clickbtn {
       text-shadow: 0 0 10px #ffffff
     }
+
+    div {
+      cursor: pointer;
+    }
   }
 
   div :first-child {
